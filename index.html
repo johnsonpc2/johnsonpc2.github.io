@@ -79,6 +79,13 @@
 				opacity: 0.3;
 				font-style: italic;
 			}
+
+			.project-description td {
+        padding: 0 1em 0.9em 1em;
+        font-size: 0.82em;
+        opacity: 0.65;
+        font-style: italic;
+      }
 		</style>
 	</head>
 	<body class="is-preload">
@@ -114,7 +121,9 @@
 						<!-- About -->
 							<article id="about">
 								<h2 class="major">About</h2>
-								<span class="image main"><img src="images/20250401_Graduate_School_Ambassadors_OCM_2409.jpg" alt="Pierce C. Johnson" /></span>
+								<span class="image main" style="text-align: center;">
+                  <img src="images/20250401_Graduate_School_Ambassadors_OCM_2409.jpg" alt="Pierce C. Johnson" style="width: 80%; height: 600px; object-fit: cover; object-position: center top; margin: 0 auto; display: block;" />
+                </span>
 								<p>
 									Welcome! My name is Pierce and I'm a cognitive scientist and
 									doctoral student at the University at Albany, SUNY.
@@ -122,7 +131,7 @@
 									and personal projects on this page. Please feel free to fill
 									out my contact form if you'd like to get in touch!
 								</p>
-								<ul class="actions" style="text-align: center;">
+								<ul class="actions" style="justify-content: center;">
 								    <li><a href="JohnsonCV.pdf" class="button primary" target="_blank">Curriculum Vitae</a></li>
 								</ul>
 							</article>
@@ -130,22 +139,112 @@
 						<!-- Research -->
 							<article id="research">
 								<h2 class="major">Research</h2>
-								<span class="image main"><img src="images/pic01.jpg" alt="Research" /></span>
 								<p>
-									Broadly, I'm curious about the ways we come to learn and make predictions about the world around us.
+									Broadly, I'm curious about the ways we come to learn and make
+									predictions about the world around us.
 								</p>
 
-								<h3>Cognitive Modeling</h3>
-
-								<p>
-									Describe how you use cognitive modeling to understand behavior...
-								</p>
+								<h3>Prediction</h3>
+  								<p>
+  									Describe how you study how people make predictions...
+  								</p>
 
 								<h3>Statistical Learning</h3>
+  								<p>
+  									Describe how statistical learning plays into our ability to
+  									form predictions...
+  								</p>
 
-								<p>
-									Describe how statistical learning plays into our ability to form predictions...
-								</p>
+								<h3>Cognitive Modeling</h3>
+  								<p>
+  									Describe how you use cognitive modeling to understand
+  									behavior...
+  								</p>
+
+  							<h3>Mentored Projects</h3>
+                  <div class="table-wrapper">
+                      <table class="course-table">
+                          <thead>
+                              <tr>
+                                  <th>Year</th>
+                                  <th>Student</th>
+                                  <th>Project Title</th>
+                                  <th>Presentations</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <!-- =============================================
+                                   ADD PROJECTS BELOW.
+                                   Basic row:
+                                   <tr>
+                                     <td class="course-term">2024</td>
+                                     <td>Student Name</td>
+                                     <td>Project Title</td>
+                                     <td><a href="poster.pdf" target="_blank">Poster</a></td>
+                                   </tr>
+
+                                   Multiple presentations:
+                                   <td>
+                                     <a href="poster.pdf" target="_blank">Poster</a> &nbsp;
+                                     <a href="talk.pdf" target="_blank">Talk</a>
+                                   </td>
+
+                                   With description:
+                                   <tr>
+                                     <td class="course-term">2024</td>
+                                     <td>Student Name</td>
+                                     <td>Project Title</td>
+                                     <td><a href="poster.pdf" target="_blank">Poster</a></td>
+                                   </tr>
+                                   <tr class="project-description">
+                                     <td colspan="4">Short description of the project goes here.</td>
+                                   </tr>
+                                   ============================================= -->
+                                    <tr>
+                                     <td class="course-term">2026</td>
+                                     <td>William Duke</td>
+                                     <td>Perceptions of Suicidality</td>
+                                     <td></td>
+                                    </tr>
+
+                                    <tr>
+                                     <td class="course-term">2024-26</td>
+                                     <td>Malcolm Nance</td>
+                                     <td>The Role of Music in Social Impression Formation</td>
+                                     <td></td>
+                                    </tr>
+
+                                    <tr>
+                                     <td class="course-term">2025-26</td>
+                                     <td>Ella Bremmer</td>
+                                     <td>The Effects of Mindfulness and Attention on Life Satisfaction</td>
+                                     <td></td>
+                                    </tr>
+
+                                    <tr>
+                                     <td class="course-term">2023-25</td>
+                                     <td>Priya Samaroo</td>
+                                     <td>Integrating Memory Across Experiences</td>
+                                     <td></td>
+                                    </tr>
+
+                                    <tr>
+                                     <td class="course-term">2023-25</td>
+                                     <td>Sam Wang</td>
+                                     <td>Memory and Motivation: Comparing Intrinsic and Extrinsic Factors</td>
+                                     <td></td>
+                                    </tr>
+                          </tbody>
+                      </table>
+                  </div>
+
+  							<h3>Research Profiles</h3>
+                  <ul class="actions" style="flex-wrap: wrap; gap: 0.5em; justify-content: center;">
+                    <li><a href="YOUR_GOOGLE_SCHOLAR_URL" class="button primary icon brands fa-google" target="_blank">Google Scholar</a></li>
+                    <li><a href="https://orcid.org/0009-0002-8517-2452" class="button primary icon brands fa-orcid" target="_blank">ORCID</a></li>
+                    <li><a href="https://www.researchgate.net/profile/Pierce-Johnson" class="button primary icon brands fa-researchgate" target="_blank">ResearchGate</a></li>
+                    <li><a href="https://www.linkedin.com/in/johnsonpierce" class="button primary icon brands fa-linkedin" target="_blank">LinkedIn</a></li>
+                  </ul>
 							</article>
 
 						<!-- Teaching -->
@@ -153,8 +252,16 @@
 								<h2 class="major">Teaching</h2>
 
 								<p>
-									[Your teaching philosophy goes here. Describe your approach to the classroom,
-									your goals as an instructor, and what you hope students take away from your courses.]
+									My teaching centers the recognition that learning is demanding
+									work. As a cognitive psychologist, I understand that acquiring
+									information, integrating it with prior knowledge, and applying
+									it appropriately requires deliberate practice from students
+									and thoughtful design from the instructor. I care deeply about
+									fostering curiosity in my students while simultaneously
+									preparing them for the practical challenges they will face in
+									the future. Below, you'll find a history of the courses I
+									have taught or been a TA for, along with the syllabus for the
+									course, when possible.
 								</p>
 
 								<!-- Instructor of Record -->
@@ -194,6 +301,14 @@
 											     </tr>
 											     ============================================= -->
 											<tr>
+												<td class="course-term">Fa 2026</td>
+												<td class="course-name">Statistical Methods for Psychology</td>
+												<td class="course-role">Instructor</td>
+												<td class="course-section">1 Section</td>
+												<td></td>
+											</tr>
+
+											<tr>
 												<td class="course-term">Su 2026</td>
 												<td class="course-name">Statistical Methods for Psychology</td>
 												<td class="course-role">Instructor</td>
@@ -201,7 +316,15 @@
 												<td><a href="20260415_APSY210Syllabus.pdf" target="_blank">PDF</a></td>
 											</tr>
 											     <tr class="course-description">
-											       <td colspan="5">An online, asynchronous summer course developed to cover the basic statistical methods and their application in Psychological research.</td>
+											       <td colspan="5">This is a 6-week, asynchronous
+											       summer course developed to cover the basic
+											       statistical methods and their application in
+											       Psychological research. A series of lab assignments
+											       and journal reflections scaffholded across the 6
+											       weeks culminate in a final project requiring
+											       students to conduct their own analysis and write up
+											       their results in an APA-style article results
+											       section.</td>
 											     </tr>
 
 											<tr>
@@ -243,7 +366,6 @@
 						<!-- Personal Projects -->
 							<article id="projects">
 								<h2 class="major">Projects</h2>
-								<span class="image main"><img src="images/pic03.jpg" alt="Projects" /></span>
 								<p>
 									In my free time, I develop R packages to make data analysis more efficient.
 									Check out my GitHub for a collection of tools, experiments, and open-source contributions.
@@ -257,9 +379,6 @@
 							<article id="contact">
 								<h2 class="major">Contact</h2>
 								<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScho0zkhmGV1IRUhrZxe3CVTC0AdUT7FzDqPQhql4hl1p0TCg/viewform?embedded=true" width="100%" height="640" frameborder="0" marginheight="0" marginwidth="0" style="margin-bottom:1em;">Loading…</iframe>
-								<ul class="icons">
-									<li><a href="https://github.com/johnsonpc2" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-								</ul>
 							</article>
 
 					</div>
