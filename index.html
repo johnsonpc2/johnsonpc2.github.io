@@ -261,6 +261,7 @@
                         <div>
                           <p class="tl-card-title" id="card-title"></p>
                           <p class="tl-card-years" id="card-years"></p>
+                          <p class="tl-card-years" id="card-funding"></p>
                         </div>
                         <span class="tl-badge" id="card-badge"></span>
                       </div>
@@ -351,17 +352,18 @@
                 // ============================================================
                 const projects = [
                   {
-                    title: "Impression updating: change detection and recollection in associative memory",
+                    title: "Impression updating: The role of change detection and recollection in associative memory for face-adjective pairs",
                     startYear: 2020,
                     endYear: 2022,
                     type: 'own',
+                    funding: "$5,640",
                     badge: "Change detection",
                     desc: "How do we update our impressions of other people when new information contradicts what we previously learned? This project examined change detection — noticing when a personality adjective paired with a face had changed — in impression updating across younger and older adults. Older adults showed a positivity bias, with impression ratings shifting toward more positive evaluations regardless of adjective valence. These findings are among the first to apply a memory-for-change framework to social impression updating.",
                     pubs: [
                       { label: "Johnson, 2022", href: "20220510_FinalECFManuscript.pdf", kind: "manuscript" }
                     ],
                     pres: [
-                      { label: "CAC 2022", href: "20220405_CACFIUSPoster.pdf", kind: "poster" }
+                      { label: "CAC, 2022", href: "20220405_CACFIUSPoster.pdf", kind: "poster" }
                     ]
                   },
                   // ---- ADD YOUR OTHER PROJECTS BELOW ----
@@ -371,7 +373,7 @@
                     title: "Your second project title",
                     startYear: 2022,
                     endYear: 2023,
-                    type: 'own',
+                    type: 'collaboration',
                     badge: "Nature Images",
                     desc: "A short description of this project.",
                     pubs: [],
@@ -383,6 +385,7 @@
                     endYear: 2026,
                     type: 'own',
                     badge: "PMPP",
+                    funding: "$970",
                     desc: "A short description of what you are currently working on.",
                     pubs: [],
                     pres: []
@@ -422,6 +425,7 @@
                     startYear: 2024,
                     endYear: 2026,
                     type: 'mentored',
+                    funding: "$1,000",
                     badge: "Malcolm Nance",
                     desc: "",
                     pubs: [], pres: []
@@ -602,6 +606,7 @@
                   document.getElementById('card-title').textContent = p.title;
                   document.getElementById('card-years').textContent =
                     p.startYear + ' \u2013 ' + (p.endYear > currentYear ? 'present' : p.endYear);
+                  document.getElementById('card-funding').textContent = p.funding ? 'Funding: ' + p.funding : '';
                   document.getElementById('card-desc').textContent  = p.desc;
 
                   // Thumbnails
