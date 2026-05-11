@@ -144,22 +144,272 @@
 									predictions about the world around us.
 								</p>
 
-								<h3>Prediction</h3>
+								<h3>Themes</h3>
   								<p>
-  									Describe how you study how people make predictions...
+  								  Prediction, statistical learning, cognitive modeling
   								</p>
 
-								<h3>Statistical Learning</h3>
-  								<p>
-  									Describe how statistical learning plays into our ability to
-  									form predictions...
-  								</p>
+  							<!-- ============================================================
+                     RESEARCH TIMELINE
+                     Paste this block into your index.html inside the research
+                     article, wherever you want the timeline to appear.
 
-								<h3>Cognitive Modeling</h3>
-  								<p>
-  									Describe how you use cognitive modeling to understand
-  									behavior...
-  								</p>
+                     To customize:
+                     - Edit the `projects` array in the <script> section
+                     - Edit `allYears` to match your earliest and latest years
+                     - For endYear of an ongoing project, use the current year + 1
+                       and it will display as "present" automatically
+                     ============================================================ -->
+
+                <style>
+                  .tl-wrap { padding: 2rem 1rem 1.5rem; font-family: inherit; }
+                  .tl-title { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2.5rem; }
+                  .tl-track { position: relative; height: 56px; display: flex; align-items: center; }
+                  .tl-line-bg { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(255,255,255,0.25); z-index: 0; transform: translateY(-50%); }
+                  .tl-span { position: absolute; top: 50%; height: 3px; background: rgba(255,255,255,0.9); border-radius: 2px; z-index: 1; transform: translateY(-50%); transition: opacity 0.2s, left 0.3s ease, width 0.3s ease; opacity: 0; pointer-events: none; }
+                  .tl-span.visible { opacity: 1; }
+                  .tl-node-wrap { position: absolute; display: flex; flex-direction: column; align-items: center; z-index: 2; cursor: pointer; transform: translateX(-50%); }
+                  .tl-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.9); background: transparent; transition: background 0.15s, transform 0.15s; }
+                  .tl-node-wrap:hover .tl-dot, .tl-node-wrap.active .tl-dot { background: rgba(255,255,255,0.9); transform: scale(1.3); }
+                  .tl-connector-wrap { position: relative; height: 32px; overflow: visible; }
+                  .tl-connector-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+                  .tl-connector-line { stroke: rgba(255,255,255,0.9); stroke-width: 1.5; fill: none; stroke-dasharray: 200; stroke-dashoffset: 200; transition: stroke-dashoffset 0.35s ease; }
+                  .tl-connector-line.drawn { stroke-dashoffset: 0; }
+                  .tl-card { display: none; background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.2); border-radius: 4px; padding: 1.25rem; opacity: 0; transform: translateY(6px); transition: opacity 0.25s ease 0.3s, transform 0.25s ease 0.3s; pointer-events: none; }
+                  .tl-card.visible { display: block; opacity: 1; transform: translateY(0); pointer-events: auto; }
+                  .tl-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.75rem; }
+                  .tl-card-title { font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.95); margin: 0; }
+                  .tl-card-years { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+                  .tl-badge { font-size: 11px; padding: 3px 10px; border-radius: 4px; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); border: 0.5px solid rgba(255,255,255,0.25); white-space: nowrap; flex-shrink: 0; margin-left: 8px; }
+                  .tl-card-desc { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 1rem; }
+                  .tl-section-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.5rem; }
+                  .tl-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 0.75rem; }
+                  .tl-link { font-size: 13px; color: rgba(255,255,255,0.85); text-decoration: none; display: flex; align-items: center; gap: 4px; border: 0.5px solid rgba(255,255,255,0.3); border-radius: 4px; padding: 4px 10px; }
+                  .tl-link:hover { background: rgba(255,255,255,0.1); }
+                  .tl-empty { text-align: center; padding: 2rem 1rem; color: rgba(255,255,255,0.4); font-size: 14px; border: 0.5px solid rgba(255,255,255,0.15); border-radius: 4px; }
+                  .tl-labels { position: relative; height: 20px; margin-top: 4px; }
+                  .tl-label-item { position: absolute; font-size: 11px; color: rgba(255,255,255,0.4); transform: translateX(-50%); text-align: center; }
+                </style>
+
+                <div class="tl-wrap">
+                  <p class="tl-title">Timeline</p>
+
+                  <div class="tl-track" id="tl-track">
+                    <div class="tl-line-bg"></div>
+                    <div class="tl-span" id="tl-span"></div>
+                  </div>
+
+                  <div class="tl-labels" id="tl-labels"></div>
+
+                  <div class="tl-connector-wrap">
+                    <svg class="tl-connector-svg" viewBox="0 0 600 32" preserveAspectRatio="none">
+                      <path class="tl-connector-line" id="tl-connector" d="M300,0 L300,32"/>
+                    </svg>
+                  </div>
+
+                  <div>
+                    <div class="tl-empty" id="tl-empty">Click a point on the timeline to see project details</div>
+                    <div class="tl-card" id="tl-card">
+                      <div class="tl-card-header">
+                        <div>
+                          <p class="tl-card-title" id="card-title"></p>
+                          <p class="tl-card-years" id="card-years"></p>
+                        </div>
+                        <span class="tl-badge" id="card-badge"></span>
+                      </div>
+                      <p class="tl-card-desc" id="card-desc"></p>
+                      <div id="pubs-section">
+                        <p class="tl-section-label">Products</p>
+                        <div class="tl-links" id="card-pubs"></div>
+                      </div>
+                      <div id="pres-section">
+                        <p class="tl-section-label">Presentations</p>
+                        <div class="tl-links" id="card-pres"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <script>
+                // ============================================================
+                // EDIT YOUR PROJECTS HERE
+                // Each project needs:
+                //   title      — the project name
+                //   startYear  — year the project began
+                //   endYear    — year it ended (use current year + 1 for ongoing)
+                //   badge      — short label shown in the top-right of the card
+                //   desc       — a sentence or two describing the project
+                //   pubs       — array of { label, href } for products (papers, manuscripts, etc.)
+                //   pres       — array of { label, href } for presentations
+                //               (use href: "#" as a placeholder until you have a URL)
+                // ============================================================
+                const projects = [
+                  {
+                    title: "Your first project title",
+                    startYear: 2020,
+                    endYear: 2022,
+                    badge: "Change detection",
+                    desc: "A short description of what this project was about and what you found.",
+                    pubs: [],
+                    pres: [
+                      { label: "Poster — Conference Name Year", href: "#" },
+                      { label: "Talk — Conference Name Year", href: "#" }
+                    ]
+                  },
+                  {
+                    title: "Your second project title",
+                    startYear: 2022,
+                    endYear: 2023,
+                    badge: "Nature Images",
+                    desc: "A short description of this longer-running project.",
+                    pubs: [],
+                    pres: []
+                  },
+                  {
+                    title: "Your current project",
+                    startYear: 2023,
+                    endYear: 2026,
+                    badge: "PMPP",
+                    desc: "A short description of what you are currently working on.",
+                    pubs: [],
+                    pres: []
+                  },
+                  {
+                    title: "Your second project title",
+                    startYear: 2025,
+                    endYear: 2029,
+                    badge: "Auditory Classifications",
+                    desc: "A short description of this longer-running project.",
+                    pubs: [],
+                    pres: [
+                      { label: "Poster — Conference Name Year", href: "#" }
+                    ]
+                  },
+                  {
+                    title: "Your second project title",
+                    startYear: 2026,
+                    endYear: 2029,
+                    badge: "Maze Task",
+                    desc: "A short description of this longer-running project.",
+                    pubs: [],
+                    pres: [
+                      { label: "Poster — Conference Name Year", href: "#" }
+                    ]
+                  }
+                ];
+
+                const startYear = 2020;
+                const currentYear = new Date().getFullYear();
+                const allYears = Array.from({ length: currentYear - startYear + 1 }, (_, i) => startYear + i);
+
+                // --- No edits needed below this line ---
+                const minYear = allYears[0];
+                const maxYear = allYears[allYears.length - 1];
+
+                const track = document.getElementById('tl-track');
+                const labelsEl = document.getElementById('tl-labels');
+                const spanEl = document.getElementById('tl-span');
+                const connectorEl = document.getElementById('tl-connector');
+                const cardEl = document.getElementById('tl-card');
+                const emptyEl = document.getElementById('tl-empty');
+
+                function yearToPercent(y) {
+                  return ((y - minYear) / (maxYear - minYear)) * 100;
+                }
+
+                allYears.forEach(y => {
+                  const labelDiv = document.createElement('div');
+                  labelDiv.className = 'tl-label-item';
+                  labelDiv.style.left = yearToPercent(y) + '%';
+                  labelDiv.textContent = y;
+                  labelsEl.appendChild(labelDiv);
+                });
+
+                const byStart = {};
+                projects.forEach((p, i) => {
+                  if (!byStart[p.startYear]) byStart[p.startYear] = [];
+                  byStart[p.startYear].push(i);
+                });
+
+                const STEP = 22;
+                const offsets = new Array(projects.length).fill(0);
+                Object.values(byStart).forEach(group => {
+                  if (group.length === 1) return;
+                  const mid = (group.length - 1) / 2;
+                  group.forEach((idx, gi) => { offsets[idx] = Math.round((gi - mid) * STEP); });
+                });
+
+                const nodeEls = [];
+                projects.forEach((p, i) => {
+                  const pct = yearToPercent(p.startYear);
+                  const wrap = document.createElement('div');
+                  wrap.className = 'tl-node-wrap';
+                  wrap.style.left = pct + '%';
+                  wrap.style.top = '50%';
+                  wrap.style.transform = `translateX(-50%) translateY(calc(-50% + ${offsets[i]}px))`;
+                  wrap.dataset.id = i;
+                  const dot = document.createElement('div');
+                  dot.className = 'tl-dot';
+                  wrap.appendChild(dot);
+                  track.appendChild(wrap);
+                  nodeEls.push(wrap);
+                  wrap.addEventListener('click', () => activateNode(i, wrap));
+                });
+
+                function activateNode(id, nodeEl) {
+                  nodeEls.forEach(n => n.classList.remove('active'));
+                  nodeEl.classList.add('active');
+                  const p = projects[id];
+
+                  const startPct = yearToPercent(p.startYear);
+                  const endPct = yearToPercent(Math.min(p.endYear, maxYear));
+                  spanEl.style.left = startPct + '%';
+                  spanEl.style.width = (endPct - startPct) + '%';
+                  spanEl.classList.add('visible');
+
+                  const trackRect = track.getBoundingClientRect();
+                  const wrapRect = nodeEl.getBoundingClientRect();
+                  const dotCenterX = wrapRect.left + wrapRect.width / 2 - trackRect.left;
+                  const svgX = (dotCenterX / trackRect.width) * 600;
+
+                  connectorEl.setAttribute('d', `M${svgX},0 L${svgX},32`);
+                  connectorEl.classList.remove('drawn');
+                  void connectorEl.getBBox();
+                  connectorEl.classList.add('drawn');
+
+                  document.getElementById('card-title').textContent = p.title;
+                  document.getElementById('card-years').textContent =
+                    p.startYear + ' \u2013 ' + (p.endYear > currentYear ? 'present' : p.endYear);
+                  document.getElementById('card-badge').textContent = p.badge;
+                  document.getElementById('card-desc').textContent = p.desc;
+
+                  const pubsEl = document.getElementById('card-pubs');
+                  pubsEl.innerHTML = p.pubs.map(l =>
+                    `<a class="tl-link" href="${l.href}" target="_blank">&#128196; ${l.label}</a>`
+                  ).join('');
+                  document.getElementById('pubs-section').style.display = p.pubs.length ? 'block' : 'none';
+
+                  const presEl = document.getElementById('card-pres');
+                  presEl.innerHTML = p.pres.map(l =>
+                    `<a class="tl-link" href="${l.href}" target="_blank">&#128202; ${l.label}</a>`
+                  ).join('');
+                  document.getElementById('pres-section').style.display = p.pres.length ? 'block' : 'none';
+
+                  emptyEl.style.display = 'none';
+                  cardEl.style.display = 'block';
+                  cardEl.classList.add('visible');
+                }
+                document.getElementById('research').addEventListener('click', function(e) {
+                  if (!cardEl.contains(e.target) && !e.target.closest('.tl-node-wrap')) {
+                      cardEl.classList.remove('visible');
+                      cardEl.style.display = 'none';
+                      spanEl.classList.remove('visible');
+                      connectorEl.classList.remove('drawn');
+                      nodeEls.forEach(n => n.classList.remove('active'));
+                      emptyEl.style.display = 'block';
+                  }
+                });
+                </script>
 
   							<h3>Mentored Projects</h3>
                   <div class="table-wrapper">
@@ -238,7 +488,7 @@
                       </table>
                   </div>
 
-  							<h3>Research Profiles</h3>
+  							<h3>Profiles</h3>
                   <ul class="actions" style="flex-wrap: wrap; gap: 0.5em; justify-content: center;">
                     <li><a href="YOUR_GOOGLE_SCHOLAR_URL" class="button primary icon brands fa-google" target="_blank">Google Scholar</a></li>
                     <li><a href="https://orcid.org/0009-0002-8517-2452" class="button primary icon brands fa-orcid" target="_blank">ORCID</a></li>
@@ -253,15 +503,15 @@
 
 								<p>
 									My teaching centers the recognition that learning is demanding
-									work. As a cognitive psychologist, I understand that acquiring
-									information, integrating it with prior knowledge, and applying
-									it appropriately requires deliberate practice from students
-									and thoughtful design from the instructor. I care deeply about
-									fostering curiosity in my students while simultaneously
-									preparing them for the practical challenges they will face in
-									the future. Below, you'll find a history of the courses I
-									have taught or been a TA for, along with the syllabus for the
-									course, when possible.
+									work. As a cognitive psychologist, I understand that
+									efficiently acquiring information, integrating it with prior
+									knowledge, and applying it appropriately requires deliberate
+									practice from students and thoughtful design from an
+									instructor. I care deeply about fostering curiosity in my
+									students while simultaneously preparing them for the practical
+									challenges they will face in the future. Below, you'll find a
+									history of the courses I have taught or been a TA for, along
+									with the syllabus for the course, when possible.
 								</p>
 
 								<!-- Instructor of Record -->
