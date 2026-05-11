@@ -101,7 +101,7 @@
 						<div class="content">
 							<div class="inner">
 								<h1>Pierce C. Johnson</h1>
-								<p>Computational Modeling &nbsp;|&nbsp; Prediction &nbsp;|&nbsp; Statistical Learning</p>
+								<p>Learning &nbsp;|&nbsp; Computational Modeling &nbsp;|&nbsp; Prediction</p>
 							</div>
 						</div>
 						<nav>
@@ -126,10 +126,13 @@
                 </span>
 								<p>
 									Welcome! My name is Pierce and I'm a cognitive scientist and
-									doctoral student at the University at Albany, SUNY.
-									You can learn more about my research, courses I've taught,
-									and personal projects on this page. Please feel free to fill
-									out my contact form if you'd like to get in touch!
+									doctoral student at the University at Albany, SUNY. Prior to
+									moving to Albany, I graduated with a degree in Psychology and
+									Philosophy from Elon University and spent a year as a lab
+									manager at CU, Denver. You can learn more about my research,
+									courses I've taught, and personal projects on this page.
+									Please feel free to reach out if anything you see interests
+									you. I'm always open to chat!
 								</p>
 								<ul class="actions" style="justify-content: center;">
 								    <li><a href="JohnsonCV.pdf" class="button primary" target="_blank">Curriculum Vitae</a></li>
@@ -151,41 +154,85 @@
 
   							<!-- ============================================================
                      RESEARCH TIMELINE
-                     Paste this block into your index.html inside the research
-                     article, wherever you want the timeline to appear.
+                     Paste this entire block into your index.html inside the
+                     research article, where you want the timeline to appear.
 
-                     To customize:
-                     - Edit the `projects` array in the <script> section
-                     - Edit `allYears` to match your earliest and latest years
-                     - For endYear of an ongoing project, use the current year + 1
-                       and it will display as "present" automatically
+                     TO CUSTOMIZE:
+                     - Edit the TYPE_STYLES if you want to change label names
+                     - Edit the `projects` array with your real projects
+                     - Edit `startYear` to your earliest project year
+                     - The timeline end year updates automatically each January
+
+                     EACH PROJECT NEEDS:
+                       title      — project name shown in the card header
+                       startYear  — year the project began (dot position)
+                       endYear    — year it ended; use a future year for ongoing
+                                    (displays as "present" automatically)
+                       type       — 'own', 'mentored', or 'collaboration'
+                       badge      — short topic label shown in the badge
+                       desc       — 1-3 sentence description shown in the card
+                       pubs       — array of { label, href, kind } for products
+                                    kind can be: 'manuscript', 'poster', or 'talk'
+                       pres       — array of { label, href, kind } for presentations
+                                    kind can be: 'manuscript', 'poster', or 'talk'
+
+                     EXAMPLE PROJECT WITH THUMBNAILS:
+                     {
+                       title: "Impression updating in associative memory",
+                       startYear: 2020,
+                       endYear: 2022,
+                       type: 'own',
+                       badge: "Change detection",
+                       desc: "How do we update impressions when new information...",
+                       pubs: [
+                         {
+                           label: "Johnson, 2022",
+                           href: "20220510_FinalECFManuscript.pdf",
+                           kind: "manuscript"
+                         }
+                       ],
+                       pres: [
+                         {
+                           label: "CACFIUS 2022",
+                           href: "20220405_CACFIUSPoster.pdf",
+                           kind: "poster"
+                         }
+                       ]
+                     }
                      ============================================================ -->
 
                 <style>
                   .tl-wrap { padding: 2rem 1rem 1.5rem; font-family: inherit; }
-                  .tl-title { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2.5rem; }
+                  .tl-title { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+                  .tl-legend { display: flex; gap: 1.5em; margin-bottom: 1.5rem; flex-wrap: wrap; }
+                  .tl-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,0.6); }
+                  .tl-legend-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid; flex-shrink: 0; }
                   .tl-track { position: relative; height: 56px; display: flex; align-items: center; }
                   .tl-line-bg { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(255,255,255,0.25); z-index: 0; transform: translateY(-50%); }
-                  .tl-span { position: absolute; top: 50%; height: 3px; background: rgba(255,255,255,0.9); border-radius: 2px; z-index: 1; transform: translateY(-50%); transition: opacity 0.2s, left 0.3s ease, width 0.3s ease; opacity: 0; pointer-events: none; }
+                  .tl-span { position: absolute; top: 50%; height: 3px; border-radius: 2px; z-index: 1; transform: translateY(-50%); transition: opacity 0.2s, left 0.3s ease, width 0.3s ease; opacity: 0; pointer-events: none; }
                   .tl-span.visible { opacity: 1; }
-                  .tl-node-wrap { position: absolute; display: flex; flex-direction: column; align-items: center; z-index: 2; cursor: pointer; transform: translateX(-50%); }
-                  .tl-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.9); background: transparent; transition: background 0.15s, transform 0.15s; }
-                  .tl-node-wrap:hover .tl-dot, .tl-node-wrap.active .tl-dot { background: rgba(255,255,255,0.9); transform: scale(1.3); }
+                  .tl-node-wrap { position: absolute; display: flex; flex-direction: column; align-items: center; z-index: 2; cursor: pointer; }
+                  .tl-dot { width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid; background: transparent; transition: background 0.15s, transform 0.15s; }
                   .tl-connector-wrap { position: relative; height: 32px; overflow: visible; }
                   .tl-connector-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-                  .tl-connector-line { stroke: rgba(255,255,255,0.9); stroke-width: 1.5; fill: none; stroke-dasharray: 200; stroke-dashoffset: 200; transition: stroke-dashoffset 0.35s ease; }
+                  .tl-connector-line { stroke-width: 1.5; fill: none; stroke-dasharray: 200; stroke-dashoffset: 200; transition: stroke-dashoffset 0.35s ease; }
                   .tl-connector-line.drawn { stroke-dashoffset: 0; }
-                  .tl-card { display: none; background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.2); border-radius: 4px; padding: 1.25rem; opacity: 0; transform: translateY(6px); transition: opacity 0.25s ease 0.3s, transform 0.25s ease 0.3s; pointer-events: none; }
+                  .tl-card { display: none; border-radius: 8px; padding: 1.25rem; opacity: 0; transform: translateY(6px); transition: opacity 0.25s ease 0.3s, transform 0.25s ease 0.3s; pointer-events: none; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.2); }
                   .tl-card.visible { display: block; opacity: 1; transform: translateY(0); pointer-events: auto; }
                   .tl-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.75rem; }
                   .tl-card-title { font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.95); margin: 0; }
                   .tl-card-years { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 2px; }
-                  .tl-badge { font-size: 11px; padding: 3px 10px; border-radius: 4px; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); border: 0.5px solid rgba(255,255,255,0.25); white-space: nowrap; flex-shrink: 0; margin-left: 8px; }
-                  .tl-card-desc { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 1rem; }
-                  .tl-section-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.5rem; }
-                  .tl-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 0.75rem; }
-                  .tl-link { font-size: 13px; color: rgba(255,255,255,0.85); text-decoration: none; display: flex; align-items: center; gap: 4px; border: 0.5px solid rgba(255,255,255,0.3); border-radius: 4px; padding: 4px 10px; }
-                  .tl-link:hover { background: rgba(255,255,255,0.1); }
+                  .tl-badge { font-size: 11px; padding: 3px 10px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; margin-left: 8px; font-weight: 600; }
+                  .tl-card-body { display: flex; gap: 1.25rem; align-items: flex-start; }
+                  .tl-card-desc { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; margin: 0; flex: 1; }
+                  .tl-thumbs { display: flex; flex-direction: column; gap: 14px; flex-shrink: 0; width: 130px; }
+                  .tl-thumb-group { display: flex; flex-direction: column; }
+                  .tl-thumb-label { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.45); margin: 0 0 5px 0; letter-spacing: 0.06em; text-transform: uppercase; }
+                  .tl-thumb-link { text-decoration: none; display: block; border: 0.5px solid rgba(255,255,255,0.3); border-radius: 6px; overflow: hidden; background: rgba(255,255,255,0.05); transition: background 0.15s; }
+                  .tl-thumb-link:hover { background: rgba(255,255,255,0.12); }
+                  .tl-thumb-preview { background: #f5f5f5; height: 80px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+                  .tl-thumb-meta { padding: 5px 8px; }
+                  .tl-thumb-meta p { font-size: 10px; color: rgba(255,255,255,0.5); margin: 0; }
                   .tl-empty { text-align: center; padding: 2rem 1rem; color: rgba(255,255,255,0.4); font-size: 14px; border: 0.5px solid rgba(255,255,255,0.15); border-radius: 4px; }
                   .tl-labels { position: relative; height: 20px; margin-top: 4px; }
                   .tl-label-item { position: absolute; font-size: 11px; color: rgba(255,255,255,0.4); transform: translateX(-50%); text-align: center; }
@@ -193,12 +240,12 @@
 
                 <div class="tl-wrap">
                   <p class="tl-title">Timeline</p>
+                  <div class="tl-legend" id="tl-legend"></div>
 
                   <div class="tl-track" id="tl-track">
                     <div class="tl-line-bg"></div>
                     <div class="tl-span" id="tl-span"></div>
                   </div>
-
                   <div class="tl-labels" id="tl-labels"></div>
 
                   <div class="tl-connector-wrap">
@@ -217,14 +264,9 @@
                         </div>
                         <span class="tl-badge" id="card-badge"></span>
                       </div>
-                      <p class="tl-card-desc" id="card-desc"></p>
-                      <div id="pubs-section">
-                        <p class="tl-section-label">Products</p>
-                        <div class="tl-links" id="card-pubs"></div>
-                      </div>
-                      <div id="pres-section">
-                        <p class="tl-section-label">Presentations</p>
-                        <div class="tl-links" id="card-pres"></div>
+                      <div class="tl-card-body">
+                        <p class="tl-card-desc" id="card-desc"></p>
+                        <div class="tl-thumbs" id="card-thumbs"></div>
                       </div>
                     </div>
                   </div>
@@ -232,36 +274,106 @@
 
                 <script>
                 // ============================================================
-                // EDIT YOUR PROJECTS HERE
-                // Each project needs:
-                //   title      — the project name
-                //   startYear  — year the project began
-                //   endYear    — year it ended (use current year + 1 for ongoing)
-                //   badge      — short label shown in the top-right of the card
-                //   desc       — a sentence or two describing the project
-                //   pubs       — array of { label, href } for products (papers, manuscripts, etc.)
-                //   pres       — array of { label, href } for presentations
-                //               (use href: "#" as a placeholder until you have a URL)
+                // COLOR SCHEME — colorblind-safe (IBM palette)
+                // own = white (most salient), mentored = amber, collaboration = blue
+                // ============================================================
+                const TYPE_STYLES = {
+                  own:           { color: '#FFFFFF', label: 'My Research' },
+                  mentored:      { color: '#FFB000', label: 'Mentored Project' },
+                  collaboration: { color: '#648FFF', label: 'Collaboration' }
+                };
+
+                // ============================================================
+                // THUMBNAIL PREVIEW TEMPLATES
+                // These generate the little stylized document previews.
+                // 'manuscript' = title-page style, 'poster' = multi-column,
+                // 'talk' = slide-deck style
+                // ============================================================
+                function thumbPreviewHTML(kind) {
+                  if (kind === 'manuscript') {
+                    return `
+                      <div style="width:60%;background:white;height:90%;border:0.5px solid #ddd;border-radius:2px;padding:6px;display:flex;flex-direction:column;gap:3px;">
+                        <div style="height:5px;background:#1a1a1a;border-radius:1px;width:90%;"></div>
+                        <div style="height:3px;background:#555;border-radius:1px;width:75%;margin:0 auto;"></div>
+                        <div style="height:2px;background:#aaa;border-radius:1px;width:60%;margin:4px auto 0;"></div>
+                        <div style="height:2px;background:#aaa;border-radius:1px;width:50%;margin:0 auto;"></div>
+                        <div style="height:2px;background:#aaa;border-radius:1px;width:40%;margin:0 auto;"></div>
+                        <div style="margin-top:4px;height:20px;background:#8c0000;border-radius:2px;display:flex;align-items:center;justify-content:center;">
+                          <span style="font-size:6px;color:white;font-weight:600;letter-spacing:0.3px;">MANUSCRIPT</span>
+                        </div>
+                      </div>`;
+                  }
+                  if (kind === 'poster') {
+                    return `
+                      <div style="width:85%;height:85%;background:white;border:0.5px solid #ddd;border-radius:2px;padding:4px;display:flex;flex-direction:column;gap:2px;">
+                        <div style="height:4px;background:#1a5276;border-radius:1px;width:100%;"></div>
+                        <div style="display:flex;gap:2px;flex:1;margin-top:2px;">
+                          <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
+                            <div style="height:2px;background:#bbb;border-radius:1px;"></div>
+                            <div style="height:2px;background:#bbb;border-radius:1px;width:80%;"></div>
+                            <div style="height:14px;background:#e8e8e8;border-radius:1px;margin-top:2px;"></div>
+                          </div>
+                          <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
+                            <div style="height:2px;background:#bbb;border-radius:1px;"></div>
+                            <div style="height:2px;background:#bbb;border-radius:1px;width:70%;"></div>
+                            <div style="height:14px;background:#e8e8e8;border-radius:1px;margin-top:2px;"></div>
+                          </div>
+                          <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
+                            <div style="height:2px;background:#bbb;border-radius:1px;"></div>
+                            <div style="height:2px;background:#bbb;border-radius:1px;width:75%;"></div>
+                            <div style="height:14px;background:#e8e8e8;border-radius:1px;margin-top:2px;"></div>
+                          </div>
+                        </div>
+                      </div>`;
+                  }
+                  if (kind === 'talk') {
+                    return `
+                      <div style="width:80%;height:80%;background:white;border:0.5px solid #ddd;border-radius:2px;padding:4px;display:flex;flex-direction:column;gap:3px;">
+                        <div style="height:3px;background:#1a5276;border-radius:1px;width:100%;"></div>
+                        <div style="flex:1;background:#f0f4f8;border-radius:1px;display:flex;align-items:center;justify-content:center;">
+                          <div style="width:70%;display:flex;flex-direction:column;gap:2px;">
+                            <div style="height:3px;background:#555;border-radius:1px;"></div>
+                            <div style="height:2px;background:#aaa;border-radius:1px;width:80%;"></div>
+                          </div>
+                        </div>
+                        <div style="display:flex;gap:2px;">
+                          <div style="flex:1;height:8px;background:#e8e8e8;border-radius:1px;"></div>
+                          <div style="flex:1;height:8px;background:#e8e8e8;border-radius:1px;"></div>
+                          <div style="flex:1;height:8px;background:#e8e8e8;border-radius:1px;"></div>
+                        </div>
+                      </div>`;
+                  }
+                  return '';
+                }
+
+                // ============================================================
+                // YOUR PROJECTS — edit this array
                 // ============================================================
                 const projects = [
                   {
-                    title: "Your first project title",
+                    title: "Impression updating: change detection and recollection in associative memory",
                     startYear: 2020,
                     endYear: 2022,
+                    type: 'own',
                     badge: "Change detection",
-                    desc: "A short description of what this project was about and what you found.",
-                    pubs: [],
+                    desc: "How do we update our impressions of other people when new information contradicts what we previously learned? This project examined change detection — noticing when a personality adjective paired with a face had changed — in impression updating across younger and older adults. Older adults showed a positivity bias, with impression ratings shifting toward more positive evaluations regardless of adjective valence. These findings are among the first to apply a memory-for-change framework to social impression updating.",
+                    pubs: [
+                      { label: "Johnson, 2022", href: "20220510_FinalECFManuscript.pdf", kind: "manuscript" }
+                    ],
                     pres: [
-                      { label: "Poster — Conference Name Year", href: "#" },
-                      { label: "Talk — Conference Name Year", href: "#" }
+                      { label: "CAC 2022", href: "20220405_CACFIUSPoster.pdf", kind: "poster" }
                     ]
                   },
+                  // ---- ADD YOUR OTHER PROJECTS BELOW ----
+                  // Copy and paste the block above and fill in your details.
+                  // For projects with no pubs or pres yet, use empty arrays: pubs: [], pres: []
                   {
                     title: "Your second project title",
                     startYear: 2022,
                     endYear: 2023,
+                    type: 'own',
                     badge: "Nature Images",
-                    desc: "A short description of this longer-running project.",
+                    desc: "A short description of this project.",
                     pubs: [],
                     pres: []
                   },
@@ -269,68 +381,127 @@
                     title: "Your current project",
                     startYear: 2023,
                     endYear: 2026,
+                    type: 'own',
                     badge: "PMPP",
                     desc: "A short description of what you are currently working on.",
                     pubs: [],
                     pres: []
                   },
                   {
-                    title: "Your second project title",
+                    title: "Your fourth project",
                     startYear: 2025,
                     endYear: 2029,
+                    type: 'collaboration',
                     badge: "Auditory Classifications",
                     desc: "A short description of this longer-running project.",
                     pubs: [],
-                    pres: [
-                      { label: "Poster — Conference Name Year", href: "#" }
-                    ]
+                    pres: []
                   },
                   {
-                    title: "Your second project title",
+                    title: "Your fifth project",
                     startYear: 2026,
                     endYear: 2029,
+                    type: 'own',
                     badge: "Maze Task",
-                    desc: "A short description of this longer-running project.",
+                    desc: "A short description of this project.",
                     pubs: [],
-                    pres: [
-                      { label: "Poster — Conference Name Year", href: "#" }
-                    ]
+                    pres: []
+                  },
+                  // ---- MENTORED PROJECTS ----
+                  {
+                    title: "Perceptions of Suicidality",
+                    startYear: 2026,
+                    endYear: 2027,
+                    type: 'mentored',
+                    badge: "William Duke",
+                    desc: "",
+                    pubs: [], pres: []
+                  },
+                  {
+                    title: "The Role of Music in Social Impression Formation",
+                    startYear: 2024,
+                    endYear: 2026,
+                    type: 'mentored',
+                    badge: "Malcolm Nance",
+                    desc: "",
+                    pubs: [], pres: []
+                  },
+                  {
+                    title: "The Effects of Mindfulness and Attention on Life Satisfaction",
+                    startYear: 2025,
+                    endYear: 2026,
+                    type: 'mentored',
+                    badge: "Ella Bremmer",
+                    desc: "",
+                    pubs: [], pres: []
+                  },
+                  {
+                    title: "Integrating Memory Across Experiences",
+                    startYear: 2023,
+                    endYear: 2025,
+                    type: 'mentored',
+                    badge: "Priya Samaroo",
+                    desc: "",
+                    pubs: [], pres: []
+                  },
+                  {
+                    title: "Memory and Motivation: Comparing Intrinsic and Extrinsic Factors",
+                    startYear: 2023,
+                    endYear: 2025,
+                    type: 'mentored',
+                    badge: "Sam Wang",
+                    desc: "",
+                    pubs: [], pres: []
                   }
                 ];
 
+                // ============================================================
+                // YEAR RANGE — edit startYear only; end updates automatically
+                // ============================================================
                 const startYear = 2020;
                 const currentYear = new Date().getFullYear();
                 const allYears = Array.from({ length: currentYear - startYear + 1 }, (_, i) => startYear + i);
-
-                // --- No edits needed below this line ---
                 const minYear = allYears[0];
                 const maxYear = allYears[allYears.length - 1];
 
-                const track = document.getElementById('tl-track');
+                // ---- No edits needed below this line ----
+
+                // Build legend
+                const legendEl = document.getElementById('tl-legend');
+                Object.entries(TYPE_STYLES).forEach(([key, s]) => {
+                  const item = document.createElement('div');
+                  item.className = 'tl-legend-item';
+                  item.innerHTML = `<div class="tl-legend-dot" style="border-color:${s.color};background:${s.color === '#FFFFFF' ? 'transparent' : s.color + '33'};"></div><span>${s.label}</span>`;
+                  legendEl.appendChild(item);
+                });
+
+                const track    = document.getElementById('tl-track');
                 const labelsEl = document.getElementById('tl-labels');
-                const spanEl = document.getElementById('tl-span');
-                const connectorEl = document.getElementById('tl-connector');
-                const cardEl = document.getElementById('tl-card');
-                const emptyEl = document.getElementById('tl-empty');
+                const spanEl   = document.getElementById('tl-span');
+                const connEl   = document.getElementById('tl-connector');
+                const cardEl   = document.getElementById('tl-card');
+                const emptyEl  = document.getElementById('tl-empty');
+                const thumbsEl = document.getElementById('card-thumbs');
 
                 function yearToPercent(y) {
                   return ((y - minYear) / (maxYear - minYear)) * 100;
                 }
 
+                // Year labels
                 allYears.forEach(y => {
-                  const labelDiv = document.createElement('div');
-                  labelDiv.className = 'tl-label-item';
-                  labelDiv.style.left = yearToPercent(y) + '%';
-                  labelDiv.textContent = y;
-                  labelsEl.appendChild(labelDiv);
+                  const d = document.createElement('div');
+                  d.className = 'tl-label-item';
+                  d.style.left = yearToPercent(y) + '%';
+                  d.textContent = y;
+                  labelsEl.appendChild(d);
                 });
 
+                // Collision detection — stagger dots that share a startYear
                 const byStart = {};
                 projects.forEach((p, i) => {
                   if (!byStart[p.startYear]) byStart[p.startYear] = [];
                   byStart[p.startYear].push(i);
                 });
-
                 const STEP = 22;
                 const offsets = new Array(projects.length).fill(0);
                 Object.values(byStart).forEach(group => {
@@ -339,154 +510,126 @@
                   group.forEach((idx, gi) => { offsets[idx] = Math.round((gi - mid) * STEP); });
                 });
 
+                // Build nodes
                 const nodeEls = [];
                 projects.forEach((p, i) => {
-                  const pct = yearToPercent(p.startYear);
-                  const wrap = document.createElement('div');
+                  const color = TYPE_STYLES[p.type].color;
+                  const wrap  = document.createElement('div');
                   wrap.className = 'tl-node-wrap';
-                  wrap.style.left = pct + '%';
-                  wrap.style.top = '50%';
+                  wrap.style.left      = yearToPercent(p.startYear) + '%';
+                  wrap.style.top       = '50%';
                   wrap.style.transform = `translateX(-50%) translateY(calc(-50% + ${offsets[i]}px))`;
                   wrap.dataset.id = i;
+
                   const dot = document.createElement('div');
                   dot.className = 'tl-dot';
+                  dot.style.borderColor = color;
+
                   wrap.appendChild(dot);
                   track.appendChild(wrap);
                   nodeEls.push(wrap);
+
+                  wrap.addEventListener('mouseenter', () => {
+                    if (!wrap.classList.contains('active')) dot.style.background = color + '55';
+                  });
+                  wrap.addEventListener('mouseleave', () => {
+                    if (!wrap.classList.contains('active')) dot.style.background = 'transparent';
+                  });
                   wrap.addEventListener('click', () => activateNode(i, wrap));
                 });
 
-                function activateNode(id, nodeEl) {
-                  nodeEls.forEach(n => n.classList.remove('active'));
-                  nodeEl.classList.add('active');
-                  const p = projects[id];
+                // Build thumbnail HTML for a project
+                function buildThumbs(p) {
+                  const all = [
+                    ...p.pubs.map(x => ({ ...x, section: 'Products' })),
+                    ...p.pres.map(x => ({ ...x, section: 'Presentations' }))
+                  ];
+                  if (!all.length) return '';
+                  return all.map(item => `
+                    <div class="tl-thumb-group">
+                      <p class="tl-thumb-label">${item.kind}</p>
+                      <a class="tl-thumb-link" href="${item.href}" target="_blank">
+                        <div class="tl-thumb-preview">${thumbPreviewHTML(item.kind)}</div>
+                        <div class="tl-thumb-meta"><p>${item.label} <i class="ti ti-external-link" style="font-size:10px;" aria-hidden="true"></i></p></div>
+                      </a>
+                    </div>`).join('');
+                }
 
-                  const startPct = yearToPercent(p.startYear);
-                  const endPct = yearToPercent(Math.min(p.endYear, maxYear));
-                  spanEl.style.left = startPct + '%';
-                  spanEl.style.width = (endPct - startPct) + '%';
+                function activateNode(id, nodeEl) {
+                  // Reset all nodes
+                  nodeEls.forEach(n => {
+                    n.classList.remove('active');
+                    n.querySelector('.tl-dot').style.background = 'transparent';
+                  });
+                  nodeEl.classList.add('active');
+
+                  const p     = projects[id];
+                  const color = TYPE_STYLES[p.type].color;
+                  const label = TYPE_STYLES[p.type].label;
+
+                  // Fill dot
+                  nodeEl.querySelector('.tl-dot').style.background = color;
+
+                  // Span highlight
+                  spanEl.style.background = color;
+                  spanEl.style.left  = yearToPercent(p.startYear) + '%';
+                  spanEl.style.width = (yearToPercent(Math.min(p.endYear, maxYear)) - yearToPercent(p.startYear)) + '%';
                   spanEl.classList.add('visible');
 
-                  const trackRect = track.getBoundingClientRect();
-                  const wrapRect = nodeEl.getBoundingClientRect();
-                  const dotCenterX = wrapRect.left + wrapRect.width / 2 - trackRect.left;
-                  const svgX = (dotCenterX / trackRect.width) * 600;
+                  // Connector
+                  connEl.style.stroke = color;
+                  const trackRect   = track.getBoundingClientRect();
+                  const wrapRect    = nodeEl.getBoundingClientRect();
+                  const dotCenterX  = wrapRect.left + wrapRect.width / 2 - trackRect.left;
+                  const svgX        = (dotCenterX / trackRect.width) * 600;
+                  connEl.setAttribute('d', `M${svgX},0 L${svgX},32`);
+                  connEl.classList.remove('drawn');
+                  void connEl.getBBox();
+                  connEl.classList.add('drawn');
 
-                  connectorEl.setAttribute('d', `M${svgX},0 L${svgX},32`);
-                  connectorEl.classList.remove('drawn');
-                  void connectorEl.getBBox();
-                  connectorEl.classList.add('drawn');
+                  // Card styling
+                  cardEl.style.borderColor = color;
 
+                  // Badge
+                  const badgeEl = document.getElementById('card-badge');
+                  badgeEl.textContent    = label + ' \u2014 ' + p.badge;
+                  badgeEl.style.background   = color + '33';
+                  badgeEl.style.color        = color === '#FFFFFF' ? 'rgba(255,255,255,0.9)' : color;
+                  badgeEl.style.borderColor  = color + '88';
+                  badgeEl.style.border       = '0.5px solid ' + color + '88';
+
+                  // Content
                   document.getElementById('card-title').textContent = p.title;
                   document.getElementById('card-years').textContent =
                     p.startYear + ' \u2013 ' + (p.endYear > currentYear ? 'present' : p.endYear);
-                  document.getElementById('card-badge').textContent = p.badge;
-                  document.getElementById('card-desc').textContent = p.desc;
+                  document.getElementById('card-desc').textContent  = p.desc;
 
-                  const pubsEl = document.getElementById('card-pubs');
-                  pubsEl.innerHTML = p.pubs.map(l =>
-                    `<a class="tl-link" href="${l.href}" target="_blank">&#128196; ${l.label}</a>`
-                  ).join('');
-                  document.getElementById('pubs-section').style.display = p.pubs.length ? 'block' : 'none';
+                  // Thumbnails
+                  const thumbHTML = buildThumbs(p);
+                  thumbsEl.innerHTML = thumbHTML;
+                  thumbsEl.style.display = thumbHTML ? 'flex' : 'none';
 
-                  const presEl = document.getElementById('card-pres');
-                  presEl.innerHTML = p.pres.map(l =>
-                    `<a class="tl-link" href="${l.href}" target="_blank">&#128202; ${l.label}</a>`
-                  ).join('');
-                  document.getElementById('pres-section').style.display = p.pres.length ? 'block' : 'none';
-
-                  emptyEl.style.display = 'none';
-                  cardEl.style.display = 'block';
+                  // Show card
+                  emptyEl.style.display     = 'none';
+                  cardEl.style.display      = 'block';
                   cardEl.classList.add('visible');
                 }
+
+                // Click outside to close
                 document.getElementById('research').addEventListener('click', function(e) {
                   if (!cardEl.contains(e.target) && !e.target.closest('.tl-node-wrap')) {
-                      cardEl.classList.remove('visible');
-                      cardEl.style.display = 'none';
-                      spanEl.classList.remove('visible');
-                      connectorEl.classList.remove('drawn');
-                      nodeEls.forEach(n => n.classList.remove('active'));
-                      emptyEl.style.display = 'block';
+                    cardEl.classList.remove('visible');
+                    cardEl.style.display = 'none';
+                    spanEl.classList.remove('visible');
+                    connEl.classList.remove('drawn');
+                    nodeEls.forEach(n => {
+                      n.classList.remove('active');
+                      n.querySelector('.tl-dot').style.background = 'transparent';
+                    });
+                    emptyEl.style.display = 'block';
                   }
                 });
-                </script>
-
-  							<h3>Mentored Projects</h3>
-                  <div class="table-wrapper">
-                      <table class="course-table">
-                          <thead>
-                              <tr>
-                                  <th>Year</th>
-                                  <th>Student</th>
-                                  <th>Project Title</th>
-                                  <th>Presentations</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <!-- =============================================
-                                   ADD PROJECTS BELOW.
-                                   Basic row:
-                                   <tr>
-                                     <td class="course-term">2024</td>
-                                     <td>Student Name</td>
-                                     <td>Project Title</td>
-                                     <td><a href="poster.pdf" target="_blank">Poster</a></td>
-                                   </tr>
-
-                                   Multiple presentations:
-                                   <td>
-                                     <a href="poster.pdf" target="_blank">Poster</a> &nbsp;
-                                     <a href="talk.pdf" target="_blank">Talk</a>
-                                   </td>
-
-                                   With description:
-                                   <tr>
-                                     <td class="course-term">2024</td>
-                                     <td>Student Name</td>
-                                     <td>Project Title</td>
-                                     <td><a href="poster.pdf" target="_blank">Poster</a></td>
-                                   </tr>
-                                   <tr class="project-description">
-                                     <td colspan="4">Short description of the project goes here.</td>
-                                   </tr>
-                                   ============================================= -->
-                                    <tr>
-                                     <td class="course-term">2026</td>
-                                     <td>William Duke</td>
-                                     <td>Perceptions of Suicidality</td>
-                                     <td></td>
-                                    </tr>
-
-                                    <tr>
-                                     <td class="course-term">2024-26</td>
-                                     <td>Malcolm Nance</td>
-                                     <td>The Role of Music in Social Impression Formation</td>
-                                     <td></td>
-                                    </tr>
-
-                                    <tr>
-                                     <td class="course-term">2025-26</td>
-                                     <td>Ella Bremmer</td>
-                                     <td>The Effects of Mindfulness and Attention on Life Satisfaction</td>
-                                     <td></td>
-                                    </tr>
-
-                                    <tr>
-                                     <td class="course-term">2023-25</td>
-                                     <td>Priya Samaroo</td>
-                                     <td>Integrating Memory Across Experiences</td>
-                                     <td></td>
-                                    </tr>
-
-                                    <tr>
-                                     <td class="course-term">2023-25</td>
-                                     <td>Sam Wang</td>
-                                     <td>Memory and Motivation: Comparing Intrinsic and Extrinsic Factors</td>
-                                     <td></td>
-                                    </tr>
-                          </tbody>
-                      </table>
-                  </div>
+              </script>
 
   							<h3>Profiles</h3>
                   <ul class="actions" style="flex-wrap: wrap; gap: 0.5em; justify-content: center;">
